@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drug-Target Affinity Predictor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f5f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .result h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+
+        .error {
+            color: #e53935;
+        }
+
+        footer {
+            background-color: #0056b3;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Drug-Target Affinity Prediction System</h1>
+        <p>Enter a drug and protein name to predict their binding affinity</p>
+    </header>
+
+    <div class="container">
+        <h2>🔬 Enter Prediction Details</h2>
+
+        <form method="post">
+            <label for="drug">💊 Drug Name:</label>
+            <input type="text" id="drug" name="drug" placeholder="e.g., Gefitinib" required>
+
+            <label for="protein">🧬 Protein Name:</label>
+            <input type="text" id="protein" name="protein" placeholder="e.g., EGFR" required>
+
+            <input type="submit" value="Predict Affinity">
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h3>✅ Prediction Result</h3>
+                <p><strong>Drug:</strong> {{ result.drug }} → <code>{{ result.chembl_id }}</code></p>
+                <p><strong>Protein:</strong> {{ result.protein }} → <code>{{ result.uniprot_id }}</code></p>
+                <p><strong>Predicted Affinity Score:</strong> <strong>{{ result.score }}</strong></p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="result error">
+                ❌ {{ error }}
+            </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        &copy; 2025 Drug-Target Affinity Project | Built with 💙 for Research
+    </footer>
+
+</body>
+</html>
